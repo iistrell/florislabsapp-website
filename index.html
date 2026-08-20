@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PocketIQ Wealth — Every Financial Tool You Need</title>
+<meta name="description" content="16+ financial tools in one app. Loan calculator, net worth tracker, retirement planner, debt payoff, and more. No account required. Your data never leaves your phone.">
+<style>
+  :root {
+    --orange: #F57C00;
+    --orange-light: #FF9800;
+    --dark: #111009;
+    --dark2: #1A1814;
+    --dark3: #222018;
+    --card: #1E1C17;
+    --border: #2E2B22;
+    --text: #F0EDE8;
+    --text2: #A09880;
+    --text3: #5A5448;
+    --white: #FFFFFF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--dark);
+    color: var(--text);
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(17,16,9,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-size: 17px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.3px;
+  }
+  .nav-logo span { color: var(--orange); }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a {
+    color: var(--text2); text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--orange); color: #fff !important;
+    padding: 8px 18px; border-radius: 8px; font-weight: 700 !important;
+    font-size: 13px !important;
+  }
+  .nav-cta:hover { background: var(--orange-light) !important; }
+  @media (max-width: 600px) {
+    .nav-links { gap: 16px; }
+    .nav-links a:not(.nav-cta) { display: none; }
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 88px 24px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 400px;
+    background: radial-gradient(ellipse, rgba(245,124,0,0.14) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 20px;
+    background: rgba(245,124,0,0.1); border: 1px solid rgba(245,124,0,0.25);
+    padding: 5px 14px; border-radius: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 58px);
+    font-weight: 800; letter-spacing: -1px; line-height: 1.1;
+    color: var(--text); margin-bottom: 20px;
+    text-wrap: balance;
+  }
+  .hero h1 span { color: var(--orange); }
+  .hero-sub {
+    font-size: clamp(16px, 2.5vw, 19px);
+    color: var(--text2); max-width: 520px; margin: 0 auto 36px;
+    line-height: 1.65;
+  }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--orange); color: #fff;
+    padding: 14px 28px; border-radius: 12px;
+    font-size: 16px; font-weight: 700; text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--orange-light); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: transparent; color: var(--text2);
+    padding: 14px 24px; border-radius: 12px;
+    font-size: 15px; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--border);
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--text3); color: var(--text); }
+  .hero-trust {
+    margin-top: 36px; font-size: 12px; color: var(--text3);
+    display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;
+  }
+  .hero-trust span { display: flex; align-items: center; gap: 5px; }
+
+  /* ── STAT STRIP ── */
+  .stat-strip {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: var(--dark2);
+    padding: 28px 24px;
+    display: flex; justify-content: center; gap: 0; flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center; padding: 12px 40px;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-size: 28px; font-weight: 800; color: var(--orange); }
+  .stat-label { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  @media (max-width: 600px) {
+    .stat-strip { gap: 0; }
+    .stat-item { padding: 12px 24px; border-right: none; border-bottom: 1px solid var(--border); width: 50%; }
+    .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-bottom: none; }
+  }
+
+  /* ── SECTION ── */
+  .section { padding: 80px 24px; max-width: 1000px; margin: 0 auto; }
+  .section-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px); font-weight: 800;
+    color: var(--text); letter-spacing: -0.5px; line-height: 1.2;
+    margin-bottom: 14px; text-wrap: balance;
+  }
+  .section-body {
+    font-size: 16px; color: var(--text2); line-height: 1.75;
+    max-width: 560px; margin-bottom: 40px;
+  }
+
+  /* ── TOOL GRID ── */
+  .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+  }
+  .tool-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+  .tool-card:hover { border-color: rgba(245,124,0,0.4); }
+  .tool-card-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+  .tool-card-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .tool-card-desc { font-size: 12px; color: var(--text2); line-height: 1.5; }
+  .tool-badge {
+    display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; padding: 2px 7px; border-radius: 4px;
+    margin-top: 8px;
+  }
+  .badge-free { background: rgba(102,187,106,0.15); color: #66BB6A; }
+  .badge-pro { background: rgba(245,124,0,0.15); color: var(--orange); }
+
+  /* ── FEATURE ROWS ── */
+  .feature-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+    align-items: center; margin-bottom: 80px;
+  }
+  .feature-row.reverse { direction: rtl; }
+  .feature-row.reverse > * { direction: ltr; }
+  @media (max-width: 680px) {
+    .feature-row, .feature-row.reverse { grid-template-columns: 1fr; direction: ltr; gap: 28px; }
+  }
+  .feature-text .ft-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 10px;
+  }
+  .feature-text h3 {
+    font-size: 26px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.4px; line-height: 1.25; margin-bottom: 12px;
+    text-wrap: balance;
+  }
+  .feature-text p { font-size: 15px; color: var(--text2); line-height: 1.75; }
+  .feature-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px;
+    position: relative; overflow: hidden;
+  }
+  .feature-card::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(245,124,0,0.1) 0%, transparent 70%);
+  }
+  .fc-accent {
+    background: var(--orange); border-radius: 12px; padding: 16px 20px;
+    margin-bottom: 16px;
+  }
+  .fc-accent-label { font-size: 10px; color: rgba(255,255,255,0.65); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .fc-accent-val { font-size: 28px; font-weight: 800; color: #fff; }
+  .fc-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .fc-row:last-child { border-bottom: none; }
+  .fc-row-label { color: var(--text2); }
+  .fc-row-val { font-weight: 700; color: var(--text); }
+
+  /* ── PRIVACY PROMISE ── */
+  .privacy-strip {
+    background: var(--dark2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    padding: 48px 24px;
+  }
+  .privacy-inner {
+    max-width: 800px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px;
+    text-align: center;
+  }
+  @media (max-width: 600px) { .privacy-inner { grid-template-columns: 1fr; gap: 24px; } }
+  .privacy-item-icon { font-size: 28px; margin-bottom: 10px; }
+  .privacy-item-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .privacy-item-body { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    max-width: 680px; margin: 0 auto;
+  }
+  @media (max-width: 580px) { .pricing-grid { grid-template-columns: 1fr; } }
+  .pricing-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 28px;
+  }
+  .pricing-card.featured {
+    border-color: var(--orange);
+    background: linear-gradient(135deg, rgba(245,124,0,0.08) 0%, var(--card) 100%);
+  }
+  .pricing-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .pricing-tag.free-tag { color: #66BB6A; }
+  .pricing-tag.pro-tag { color: var(--orange); }
+  .pricing-price { font-size: 34px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
+  .pricing-price sub { font-size: 14px; font-weight: 500; color: var(--text2); vertical-align: middle; }
+  .pricing-desc { font-size: 13px; color: var(--text2); margin-bottom: 20px; }
+  .pricing-features { list-style: none; }
+  .pricing-features li {
+    font-size: 13px; color: var(--text2); padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 8px;
+  }
+  .pricing-features li:last-child { border-bottom: none; }
+  .pricing-features li::before { content: '✓'; color: #66BB6A; font-weight: 700; flex-shrink: 0; }
+  .pricing-features li.pro-feature::before { color: var(--orange); }
+  .pricing-note { font-size: 11px; color: var(--text3); margin-top: 16px; }
+
+  /* ── FOUNDER SECTION ── */
+  .founder-section {
+    background: var(--dark2); border-top: 1px solid var(--border);
+    padding: 72px 24px;
+    text-align: center;
+  }
+  .founder-inner { max-width: 640px; margin: 0 auto; }
+  .founder-quote {
+    font-size: clamp(18px, 3vw, 24px); font-weight: 600;
+    color: var(--text); line-height: 1.6; margin-bottom: 20px;
+    font-style: italic;
+  }
+  .founder-quote span { color: var(--orange); font-style: normal; }
+  .founder-attr { font-size: 13px; color: var(--text3); }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    padding: 80px 24px; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-section::before {
+    content: ''; position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse, rgba(245,124,0,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-size: clamp(26px, 5vw, 40px); font-weight: 800;
+    color: var(--text); letter-spacing: -0.5px; margin-bottom: 14px;
+    text-wrap: balance;
+  }
+  .cta-section p { font-size: 16px; color: var(--text2); margin-bottom: 32px; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    background: var(--dark2);
+    padding: 36px 24px;
+    text-align: center;
+  }
+  .footer-logo { font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 14px; }
+  .footer-logo span { color: var(--orange); }
+  .footer-links {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: 12px; color: var(--text3); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">PocketIQ <span>Wealth</span></div>
+  <div class="nav-links">
+    <a href="#tools">Tools</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#pricing">Pricing</a>
+    <a href="support.html">Support</a>
+    <a href="#download" class="nav-cta">Download</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Available on the App Store</div>
+  <h1>Every financial tool<br>you need — <span>one app.</span></h1>
+  <p class="hero-sub">16+ calculators and trackers built for the wealth-building journey. From day one to financial freedom.</p>
+  <div class="hero-actions">
+    <a href="#download" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      Download on App Store
+    </a>
+    <a href="#tools" class="btn-secondary">See all tools →</a>
+  </div>
+  <div class="hero-trust">
+    <span>✓ No account required</span>
+    <span>✓ Data stays on your device</span>
+    <span>✓ No bank connection</span>
+    <span>✓ Free to start</span>
+  </div>
+</section>
+
+<!-- STAT STRIP -->
+<div class="stat-strip">
+  <div class="stat-item">
+    <div class="stat-num">16+</div>
+    <div class="stat-label">Financial Tools</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Accounts Required</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Private — On Device</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$0</div>
+    <div class="stat-label">To Get Started</div>
+  </div>
+</div>
+
+<!-- TOOLS -->
+<div class="section" id="tools">
+  <div class="section-eyebrow">The Toolkit</div>
+  <h2 class="section-title">One app. Every tool you've been searching for.</h2>
+  <p class="section-body">Most people juggle 4 or 5 apps just to manage their money. PocketIQ Wealth puts everything in one place — organized, offline, and private.</p>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <span class="tool-card-icon">🏠</span>
+      <div class="tool-card-name">Loan Calculator</div>
+      <div class="tool-card-desc">Monthly payments, total interest, and what an extra payment saves you.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">💳</span>
+      <div class="tool-card-name">Multi-Debt Payoff</div>
+      <div class="tool-card-desc">Avalanche or Snowball — see exactly which debt to kill first.</div>
+      <span class="tool-badge badge-pro">Pro</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📊</span>
+      <div class="tool-card-name">Net Worth Tracker</div>
+      <div class="tool-card-desc">Add assets and liabilities, see your number, track growth over time.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">🔥</span>
+      <div class="tool-card-name">FIRE Calculator</div>
+      <div class="tool-card-desc">Find your Financial Independence number and your timeline to get there.</div>
+      <span class="tool-badge badge-pro">Pro</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📈</span>
+      <div class="tool-card-name">Compound Interest</div>
+      <div class="tool-card-desc">See how money grows over time — the most powerful force in finance.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">🏖️</span>
+      <div class="tool-card-name">Retirement Calculator</div>
+      <div class="tool-card-desc">What you need to retire, and whether you're on track to get there.</div>
+      <span class="tool-badge badge-pro">Pro</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">💰</span>
+      <div class="tool-card-name">Budget Planner</div>
+      <div class="tool-card-desc">50/30/20 and custom budgeting methods to fit your real life.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📋</span>
+      <div class="tool-card-name">Subscription Auditor</div>
+      <div class="tool-card-desc">See exactly what you're paying every month — and what it adds up to.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📉</span>
+      <div class="tool-card-name">Debt Paydown</div>
+      <div class="tool-card-desc">Single-debt payoff with extra payment scenarios.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">⏱️</span>
+      <div class="tool-card-name">Cost of Waiting</div>
+      <div class="tool-card-desc">What every year of delay costs you in wealth you'll never build back.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">💡</span>
+      <div class="tool-card-name">ROI Calculator</div>
+      <div class="tool-card-desc">Know your return before you commit to any investment.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+    <div class="tool-card">
+      <span class="tool-card-icon">📚</span>
+      <div class="tool-card-name">Daily Finance Tips</div>
+      <div class="tool-card-desc">One new insight per day across debt, investing, credit, FIRE, and more.</div>
+      <span class="tool-badge badge-free">Free</span>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURE ROW 1 -->
+<div class="section" style="padding-top: 20px;">
+  <div class="feature-row">
+    <div class="feature-text">
+      <div class="ft-eyebrow">Net Worth Tracker</div>
+      <h3>Know your number. Watch it grow.</h3>
+      <p>Add your assets and liabilities in seconds. PocketIQ Wealth calculates your net worth instantly — and Pro members can take snapshots over time to see their wealth trajectory. No spreadsheet required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="fc-accent">
+        <div class="fc-accent-label">Your Net Worth</div>
+        <div class="fc-accent-val">$87,450</div>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Total Assets</span>
+        <span class="fc-row-val" style="color: #66BB6A;">$142,200</span>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Total Liabilities</span>
+        <span class="fc-row-val" style="color: #EF5350;">$54,750</span>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Since last snapshot</span>
+        <span class="fc-row-val" style="color: #66BB6A;">+$4,200</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="feature-row reverse">
+    <div class="feature-text">
+      <div class="ft-eyebrow">Multi-Debt Payoff</div>
+      <h3>Two tools. One mission — debt freedom.</h3>
+      <p>The Debt Paydown and Multi-Debt Payoff calculators show you exactly which debt to eliminate first and how fast you can be free. Avalanche saves more interest. Snowball builds momentum. You choose.</p>
+    </div>
+    <div class="feature-card">
+      <div class="fc-row" style="padding-top: 4px;">
+        <span class="fc-row-label">Credit Card — 24% APR</span>
+        <span class="fc-row-val" style="color: var(--orange);">Pay first</span>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Car Loan — 6.9% APR</span>
+        <span class="fc-row-val">2nd</span>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Student Loan — 4.5% APR</span>
+        <span class="fc-row-val">3rd</span>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Debt-free in</span>
+        <span class="fc-row-val" style="color: #66BB6A;">3 yrs 4 mo</span>
+      </div>
+      <div class="fc-row">
+        <span class="fc-row-label">Interest saved</span>
+        <span class="fc-row-val" style="color: #66BB6A;">$2,840</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVACY STRIP -->
+<div class="privacy-strip" id="privacy">
+  <div class="privacy-inner">
+    <div>
+      <div class="privacy-item-icon">🔒</div>
+      <div class="privacy-item-title">No account required</div>
+      <div class="privacy-item-body">Open the app and start using it. We don't ask for your name, email, or any personal information.</div>
+    </div>
+    <div>
+      <div class="privacy-item-icon">📱</div>
+      <div class="privacy-item-title">Your data stays on your phone</div>
+      <div class="privacy-item-body">Everything you enter is stored locally on your device. Nothing is sent to any server — ever.</div>
+    </div>
+    <div>
+      <div class="privacy-item-icon">🏦</div>
+      <div class="privacy-item-title">No bank connection</div>
+      <div class="privacy-item-body">We never ask to connect to your bank accounts. Your financial data is yours alone.</div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="section" id="pricing" style="text-align: center;">
+  <div class="section-eyebrow" style="text-align: center;">Pricing</div>
+  <h2 class="section-title" style="margin: 0 auto 12px;">Start free. Upgrade when you're ready.</h2>
+  <p class="section-body" style="margin: 0 auto 40px;">The core tools are always free. Pro unlocks the planning and tracking features that keep you coming back.</p>
+
+  <div class="pricing-grid">
+    <div class="pricing-card">
+      <div class="pricing-tag free-tag">Free</div>
+      <div class="pricing-price">$0</div>
+      <div class="pricing-desc">Core calculators, always free.</div>
+      <ul class="pricing-features">
+        <li>Loan Calculator + What If</li>
+        <li>Compound Interest</li>
+        <li>Debt Paydown</li>
+        <li>Cost of Waiting</li>
+        <li>ROI Calculator</li>
+        <li>Credit Utilization &amp; DTI</li>
+        <li>Tip &amp; Basic Calculators</li>
+        <li>Subscription Auditor (up to 6)</li>
+        <li>Budget Planner (50/30/20)</li>
+        <li>Net Worth Tracker (current total)</li>
+        <li>Daily Finance Tips</li>
+      </ul>
+    </div>
+    <div class="pricing-card featured">
+      <div class="pricing-tag pro-tag">★ Pro</div>
+      <div class="pricing-price">$29.99 <sub>/ year</sub></div>
+      <div class="pricing-desc">Or $4.99/month. 7-day free trial.</div>
+      <ul class="pricing-features">
+        <li class="pro-feature">Everything in Free</li>
+        <li class="pro-feature">Multi-Debt Payoff</li>
+        <li class="pro-feature">Retirement Calculator</li>
+        <li class="pro-feature">FIRE Calculator</li>
+        <li class="pro-feature">Home Value Calculator</li>
+        <li class="pro-feature">Budget Planner (all methods)</li>
+        <li class="pro-feature">Subscription Smart Audit</li>
+        <li class="pro-feature">Net Worth Snapshots &amp; History</li>
+        <li class="pro-feature">Net Worth 10-Year Projection</li>
+        <li class="pro-feature">8 Accent Color Themes</li>
+      </ul>
+      <div class="pricing-note">Subscription managed by Apple. Cancel anytime.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOUNDER -->
+<div class="founder-section">
+  <div class="founder-inner">
+    <div class="founder-quote">
+      "I spent <span>15 years</span> building wealth and wishing one app existed that did everything. So I built it."
+    </div>
+    <div class="founder-attr">— Founder, Floris Labs LLC</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section" id="download">
+  <h2>The financial toolkit built for the journey.</h2>
+  <p>Free to download. No account. No bank link. Just open it and run the numbers.</p>
+  <a href="#" class="btn-primary">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Download on the App Store
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">PocketIQ <span>Wealth</span> · Floris Labs LLC</div>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="support.html">Support</a>
+  </div>
+  <div class="footer-copy">© 2026 Floris Labs LLC. All rights reserved. PocketIQ Wealth is not a financial advisor. For educational purposes only.</div>
+</footer>
+
+</body>
+</html>

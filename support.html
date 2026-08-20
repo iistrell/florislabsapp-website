@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — PocketIQ Wealth</title>
+<meta name="description" content="PocketIQ Wealth support center. Get answers, manage your subscription, or reach our team.">
+<style>
+  :root {
+    --orange: #F57C00;
+    --dark: #111009;
+    --dark2: #1A1814;
+    --border: #2E2B22;
+    --text: #F0EDE8;
+    --text2: #A09880;
+    --text3: #5A5448;
+    --bg: #FAFAF7;
+    --surface: #FFFFFF;
+    --body-text: #2A2520;
+    --body-text2: #5A5448;
+    --body-border: #E8E4DC;
+    --surface2: #F3F0EB;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--body-text);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+  nav {
+    background: var(--dark);
+    border-bottom: 1px solid var(--border);
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo { font-size: 17px; font-weight: 800; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--orange); }
+  .nav-back { font-size: 13px; color: var(--text2); text-decoration: none; }
+  .nav-back:hover { color: var(--orange); }
+
+  /* ── HERO ── */
+  .support-hero {
+    background: var(--dark2); border-bottom: 1px solid var(--border);
+    padding: 56px 24px 48px; text-align: center;
+  }
+  .support-hero-eyebrow {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 12px;
+  }
+  .support-hero h1 {
+    font-size: 32px; font-weight: 800; color: var(--text);
+    letter-spacing: -0.5px; margin-bottom: 10px;
+  }
+  .support-hero p { font-size: 15px; color: var(--text2); }
+
+  /* ── PAGE ── */
+  .page { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+
+  /* ── FAQ ── */
+  .faq-section-title {
+    font-size: 20px; font-weight: 700; color: var(--body-text);
+    margin-bottom: 16px; margin-top: 48px;
+    padding-bottom: 10px; border-bottom: 2px solid var(--body-border);
+  }
+  .faq-section-title:first-child { margin-top: 0; }
+
+  .faq-item {
+    background: var(--surface); border: 1px solid var(--body-border);
+    border-radius: 12px; margin-bottom: 8px; overflow: hidden;
+  }
+  .faq-q {
+    padding: 16px 20px; font-size: 15px; font-weight: 600;
+    color: var(--body-text); cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+  .faq-q:hover { background: var(--surface2); }
+  .faq-chevron { color: var(--orange); font-size: 12px; flex-shrink: 0; transition: transform 0.2s; }
+  .faq-a {
+    display: none; padding: 0 20px 16px;
+    font-size: 14px; color: var(--body-text2); line-height: 1.75;
+    border-top: 1px solid var(--body-border);
+    padding-top: 14px;
+  }
+  .faq-item.open .faq-a { display: block; }
+  .faq-item.open .faq-chevron { transform: rotate(90deg); }
+  .faq-a a { color: var(--orange); text-decoration: none; }
+  .faq-a a:hover { text-decoration: underline; }
+
+  /* ── CONTACT CARD ── */
+  .contact-card {
+    background: var(--dark); border: 1px solid var(--border);
+    border-radius: 16px; padding: 32px;
+    text-align: center; margin-top: 48px;
+  }
+  .contact-card-icon { font-size: 32px; margin-bottom: 14px; }
+  .contact-card h2 { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+  .contact-card p { font-size: 14px; color: var(--text2); margin-bottom: 20px; line-height: 1.6; }
+  .contact-btn {
+    display: inline-block;
+    background: var(--orange); color: #fff;
+    padding: 12px 28px; border-radius: 10px;
+    font-size: 15px; font-weight: 700; text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-btn:hover { background: #FF9800; }
+  .contact-note { font-size: 12px; color: var(--text3); margin-top: 12px; }
+
+  /* ── QUICK LINKS ── */
+  .quick-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;
+    margin-top: 48px;
+  }
+  @media (max-width: 560px) { .quick-grid { grid-template-columns: 1fr; } }
+  .quick-card {
+    background: var(--surface); border: 1px solid var(--body-border);
+    border-radius: 12px; padding: 18px 20px; text-decoration: none;
+    transition: border-color 0.2s;
+  }
+  .quick-card:hover { border-color: var(--orange); }
+  .quick-card-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+  .quick-card-title { font-size: 14px; font-weight: 700; color: var(--body-text); margin-bottom: 4px; }
+  .quick-card-desc { font-size: 12px; color: var(--body-text2); line-height: 1.5; }
+
+  footer {
+    border-top: 1px solid var(--body-border);
+    background: var(--dark);
+    padding: 32px 24px; text-align: center;
+  }
+  .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+  .footer-links a { font-size: 13px; color: var(--text2); text-decoration: none; }
+  .footer-links a:hover { color: var(--orange); }
+  .footer-copy { font-size: 12px; color: var(--text3); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">PocketIQ <span>Wealth</span></a>
+  <a href="index.html" class="nav-back">← Back to home</a>
+</nav>
+
+<div class="support-hero">
+  <div class="support-hero-eyebrow">Support Center</div>
+  <h1>How can we help?</h1>
+  <p>Find answers below or reach our team directly.</p>
+</div>
+
+<div class="page">
+
+  <!-- QUICK LINKS -->
+  <div class="quick-grid">
+    <a href="#subscription" class="quick-card">
+      <span class="quick-card-icon">💳</span>
+      <div class="quick-card-title">Manage Subscription</div>
+      <div class="quick-card-desc">Cancel, upgrade, or restore your Pro access.</div>
+    </a>
+    <a href="#data" class="quick-card">
+      <span class="quick-card-icon">🔒</span>
+      <div class="quick-card-title">Privacy &amp; Data</div>
+      <div class="quick-card-desc">What data we collect (none) and how storage works.</div>
+    </a>
+    <a href="#contact" class="quick-card">
+      <span class="quick-card-icon">✉️</span>
+      <div class="quick-card-title">Contact Us</div>
+      <div class="quick-card-desc">Get in touch with our support team directly.</div>
+    </a>
+  </div>
+
+  <!-- GENERAL -->
+  <div class="faq-section-title" style="margin-top: 48px;">Getting Started</div>
+
+  <div class="faq-item">
+    <div class="faq-q">Do I need to create an account to use PocketIQ Wealth? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">No account required. Open the app and start using it immediately. We don't ask for your name, email, or any personal information.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Which tools are free? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">The following tools are completely free with no time limit: Loan Calculator (including What If scenarios), Compound Interest Calculator, Single Debt Paydown, Credit Utilization, DTI Calculator, Cost of Waiting, ROI Calculator, Tip Calculator, Basic Calculator, Subscription Auditor (up to 6 subscriptions), Budget Planner (50/30/20 method), Net Worth Tracker (current view), and all Daily Finance Tips. Pro unlocks Multi-Debt Payoff, Retirement Calculator, FIRE Calculator, Home Value Calculator, full Budget Planner methods, Subscription Smart Audit, Net Worth Snapshots &amp; History, and 8 accent color themes.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Can I use the app on multiple devices? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Yes — your Pro subscription is tied to your Apple ID and works on all your personal iOS devices signed into the same Apple ID. However, because your data is stored locally on each device, entries you make on one device won't sync to another. This is a privacy feature — your data never touches a server.</div>
+  </div>
+
+  <!-- SUBSCRIPTION -->
+  <div class="faq-section-title" id="subscription">Subscription &amp; Billing</div>
+
+  <div class="faq-item">
+    <div class="faq-q">How do I start a free trial? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Tap any Pro feature in the app to open the upgrade screen. If you're a new subscriber, a 7-day free trial is available on the annual plan. Your trial begins immediately and no charge is made until the trial ends. You can cancel anytime during the trial at no cost.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How do I cancel my subscription? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Subscriptions are managed entirely by Apple. To cancel: go to <strong>Settings → [Your Name] → Subscriptions → PocketIQ Wealth → Cancel Subscription</strong>. Cancel at least 24 hours before your renewal date to avoid being charged for the next period. After cancelling, Pro features remain accessible until the end of your current billing period.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How do I restore my Pro access after reinstalling? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Open the app and go to Settings → Restore Purchases. Tap the button and sign in with your Apple ID if prompted. Your Pro access will be restored immediately at no charge.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">I was charged but the app still shows Free. What do I do? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">First, try Settings → Restore Purchases inside the app. If that doesn't work, make sure you're signed into the same Apple ID used for the purchase. Still having trouble? Email us at <a href="mailto:support@florislabsapp.com">support@florislabsapp.com</a> and we'll get it sorted.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">How do I request a refund? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Refunds are processed by Apple, not us. Visit <a href="https://reportaproblem.apple.com" target="_blank">reportaproblem.apple.com</a>, sign in with your Apple ID, find your PocketIQ Wealth purchase, and select "Request a Refund."</div>
+  </div>
+
+  <!-- DATA & PRIVACY -->
+  <div class="faq-section-title" id="data">Privacy &amp; Your Data</div>
+
+  <div class="faq-item">
+    <div class="faq-q">Does the app connect to my bank account? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">No. PocketIQ Wealth never connects to any bank or financial institution. All data is entered manually by you and stays on your device.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">Where is my data stored? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">All data you enter is stored locally on your device using Apple's standard local storage. Nothing is sent to any server. If you have iCloud Backup enabled on your device, your app data may be included in your device backup — this is controlled by your iOS settings, not by us.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What happens to my data if I delete the app? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Deleting PocketIQ Wealth removes all locally stored app data from your device. We have no copy of your data on any server. If you reinstall the app, you'll start fresh.</div>
+  </div>
+
+  <!-- TOOLS -->
+  <div class="faq-section-title">Calculator Questions</div>
+
+  <div class="faq-item">
+    <div class="faq-q">Are the calculator results guaranteed to be accurate? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">PocketIQ Wealth uses standard financial formulas to calculate results. While we work to ensure accuracy, the results are estimates based on the information you enter and may not reflect all real-world factors (taxes, fees, rate changes, etc.). Results are for educational and planning purposes. Always verify important financial decisions with a licensed professional.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What is the FIRE Calculator? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">FIRE stands for Financial Independence, Retire Early. The FIRE Calculator helps you determine your Financial Independence number (how much you need invested to live off returns indefinitely) and estimates how long it will take you to reach that number based on your current savings rate and investment return assumptions.</div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-q">What's the difference between Debt Paydown and Multi-Debt Payoff? <span class="faq-chevron">›</span></div>
+    <div class="faq-a">Debt Paydown (free) calculates the payoff timeline and interest for a single debt, with options to see what extra payments save you. Multi-Debt Payoff (Pro) handles multiple debts at once and uses Avalanche (highest interest first) or Snowball (smallest balance first) strategy to show you the optimal payoff order across all your debts.</div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact"></div>
+  <div class="contact-card">
+    <div class="contact-card-icon">✉️</div>
+    <h2>Still need help?</h2>
+    <p>Our support team typically responds within 1–2 business days. Include your device model and iOS version to help us assist you faster.</p>
+    <a href="mailto:support@florislabsapp.com" class="contact-btn">Email Support</a>
+    <div class="contact-note">support@florislabsapp.com · Floris Labs LLC</div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms of Service</a>
+    <a href="support.html">Support</a>
+  </div>
+  <div class="footer-copy">© 2026 Floris Labs LLC. All rights reserved.</div>
+</footer>
+
+<script>
+  document.querySelectorAll('.faq-q').forEach(function(q) {
+    q.addEventListener('click', function() {
+      var item = this.closest('.faq-item');
+      var wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
